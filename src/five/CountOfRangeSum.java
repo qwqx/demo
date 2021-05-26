@@ -1,11 +1,11 @@
 package five;
 
-import sun.security.provider.Sun;
-import sun.security.x509.IPAddressName;
 import util.TestUtil;
 
 /**
  * @author TK
+ *
+ * @TAG difficult
  */
 public class CountOfRangeSum {
 
@@ -32,7 +32,7 @@ public class CountOfRangeSum {
     // 以R结尾的range在[lower, upper]个数
     public static int mergeSort(int[] sum, int L, int R, int lower, int upper) {
         if (L == R) {
-            if(sum[L] >= lower && sum[L] <= upper) {
+            if (sum[L] >= lower && sum[L] <= upper) {
                 System.out.println("count2" + "L:" + L + "r:" + R);
             }
 
@@ -89,7 +89,7 @@ public class CountOfRangeSum {
                 }
             }*/
 
-           count += winR - winL;
+            count += winR - winL;
         }
 
         return count;
@@ -102,7 +102,7 @@ public class CountOfRangeSum {
             for (int j = i; j < arr.length; j++) {
                 sum += arr[j];
                 if (sum >= lower && sum <= upper) {
-                    count ++;
+                    count++;
                 }
             }
         }
