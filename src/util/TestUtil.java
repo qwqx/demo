@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Arrays;
+
 /**
  * @author TK
  */
@@ -49,10 +51,30 @@ public class TestUtil {
         return true;
     }
 
+    public static void sort(int[] arr) {
+        Arrays.sort(arr, 0, arr.length);
+    }
+
     public static void print(int arr[]) {
         for(int i = 0; i< arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
         System.out.println();
+    }
+
+    public static void swap(int[] arr, int L, int R) {
+        int temp = arr[L];
+        arr[L] = arr[R];
+        arr[R] = temp;
+    }
+
+    // must L!=R
+    // X xor 0 = x
+    // X xor X = 0
+    //不进位相加
+    public static void swap2(int[] arr, int L, int R) {
+        arr[L] = arr[L] ^ arr[R];
+        arr[R] = arr[L] ^ arr[R];//arr[L] ^ arr[R] ^ arr[R]
+        arr[L] = arr[L] ^ arr[R];
     }
 }
