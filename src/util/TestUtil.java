@@ -22,6 +22,30 @@ public class TestUtil {
         return arr;
     }
 
+    public static int[] generateRandomArrayInstanceLessK(int maxLength, int maxValue, int k) {
+        final int[] arr = generateRandomArray(maxLength, maxValue, false);
+        sort(arr);
+        final boolean[] isSwap = new boolean[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            if(!isSwap[i]) {
+                continue;
+            }
+            int swapIndex = (int) (Math.random() * k + 1);
+
+            while(!isSwap[i + swapIndex] && swapIndex <= k) {
+                swapIndex++;
+            }
+
+            if(swapIndex <= k) {
+                swap(arr, i, i+ swapIndex);
+                isSwap[i] = true;
+                isSwap[i+ swapIndex] = true;
+            }
+        }
+
+        return arr;
+    }
+
     public static int[] copyArray(int[] arr) {
         int len = arr.length;
         int[] copy = new int[len];
@@ -76,5 +100,18 @@ public class TestUtil {
         arr[L] = arr[L] ^ arr[R];
         arr[R] = arr[L] ^ arr[R];//arr[L] ^ arr[R] ^ arr[R]
         arr[L] = arr[L] ^ arr[R];
+    }
+
+
+    //generate Random lower String
+    public static String generateRandomString(int maxLen) {
+        int len = (int) ((Math.random() * maxLen) + 1);
+        char[] chars = new char[len];
+        for(int i = 0; i < len; i++) {
+            int randomChar = (int) ((Math.random() * 26));
+            chars[i] = (char) ('a' + randomChar);
+        }
+
+        return String.valueOf(chars);
     }
 }
