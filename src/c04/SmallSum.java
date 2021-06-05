@@ -1,9 +1,6 @@
-package four;
+package c04;
 
 import util.TestUtil;
-
-import javax.swing.plaf.synth.SynthTextAreaUI;
-import java.util.Arrays;
 
 /**
  * @author TK

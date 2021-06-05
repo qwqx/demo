@@ -1,4 +1,4 @@
-package seven;
+package c07;
 
 import java.util.Arrays;
 import java.util.Comparator;

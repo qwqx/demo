@@ -1,4 +1,4 @@
-package six;
+package c06;
 
 import util.TestUtil;
 

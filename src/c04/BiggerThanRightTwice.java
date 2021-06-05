@@ -1,4 +1,4 @@
-package four;
+package c04;
 
 import util.TestUtil;
 

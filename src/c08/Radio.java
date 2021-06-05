@@ -1,4 +1,4 @@
-package eight;
+package c08;
 
 /**
  * @author TK

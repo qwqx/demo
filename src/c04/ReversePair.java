@@ -1,8 +1,6 @@
-package four;
+package c04;
 
 import util.TestUtil;
-
-import java.util.Arrays;
 
 /**
  * @author TK
