@@ -20,9 +20,9 @@ public class Radio {
     }
 
     public static int get(int num, int digit) {
-        while((num / 10) != ) {
+       /* while((num / 10) != ) {
             num = num / 10;
-        }
+        }*/
         return num;
     }
 
@@ -31,7 +31,7 @@ public class Radio {
 
         int[] endCount = new int[10];
         for(int i = l; i<= r; i++) {
-            arr[i]
+            //arr[i]
 
 
 
