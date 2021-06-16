@@ -74,7 +74,8 @@ public class UnRecursiveTraversalBT {
         }
         final Stack<BTNode> stack = new Stack<>();
         BTNode curr = root;
-        while (!stack.isEmpty() || null != curr) {
+        //1.
+        /*while (!stack.isEmpty() || null != curr) {
             if (null != curr) {
                 stack.push(curr);
                 curr = curr.left;
@@ -83,6 +84,18 @@ public class UnRecursiveTraversalBT {
                 System.out.print(pop.value + " ");
                 curr = pop.right;
             }
+        }*/
+
+        //2.
+        while(!stack.isEmpty() || null != curr) {
+            while(null != curr) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+
+            final BTNode pop = stack.pop();
+            System.out.print(pop.value + " ");
+            curr = pop.right;
         }
 
         System.out.println();
@@ -160,6 +173,7 @@ public class UnRecursiveTraversalBT {
         pre(root);
         pre2(root);
         in(root);
+        System.out.println("===============");
         post1(root);
         post2(root);
 
