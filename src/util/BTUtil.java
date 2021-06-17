@@ -16,13 +16,13 @@ public class BTUtil {
 
     public static BTNode generateRandomBT(int level, int maxLevel, Double sparseDegree) {
 
-        if(level > maxLevel) {
+        if (level > maxLevel) {
             return null;
         }
 
         final double random = Math.random();
         //System.out.println("random:" + random + ",level:" + level);
-        if(random < (level / sparseDegree)) {
+        if (random < (level / sparseDegree)) {
             return null;
         }
         final BTNode root = new BTNode((int) (Math.random() * 10));
@@ -38,7 +38,7 @@ public class BTUtil {
     }
 
     public static void inOrderPrint(BTNode root, int height, String to, int len) {
-        if(null == root) {
+        if (null == root) {
             return;
         }
 
@@ -48,15 +48,15 @@ public class BTUtil {
         int lenR = len - lenL - lenM;
         val = getSpace(lenL) + val + getSpace(lenR);
 
-        inOrderPrint(root.right, height+1, "v", len);
+        inOrderPrint(root.right, height + 1, "v", len);
         System.out.println(getSpace(height * len) + val);
-        inOrderPrint(root.left, height+1, "^", len);
+        inOrderPrint(root.left, height + 1, "^", len);
     }
 
     public static String getSpace(int len) {
         String space = " ";
         final StringBuffer sb = new StringBuffer();
-        while(len > 0) {
+        while (len > 0) {
             sb.append(space);
             len--;
         }
@@ -65,22 +65,39 @@ public class BTUtil {
 
     public static boolean same(BTNode root1, BTNode root2) {
 
-        if(root1 == null && root2 == null) {
+        if (root1 == null && root2 == null) {
             return true;
         }
 
-        if(root1 == null && root2 != null) {
+        if (root1 == null && root2 != null) {
             return false;
         }
 
-        if(root1 != null && root2 == null) {
+        if (root1 != null && root2 == null) {
             return false;
         }
 
-        if(root1.value != root2.value) {
+        if (root1.value != root2.value) {
             return false;
         }
 
         return same(root1.left, root2.left) && same(root1.right, root2.right);
+    }
+
+    public static BTNode getRandomNode(BTNode root, int height) {
+        int i = 0;
+        BTNode curr = root;
+        int n = (int) (Math.random() * height) + 1;
+        while (i < n && null != curr) {
+            final boolean left = Math.random() > 0.5;
+            if (left && null != curr.left) {
+                curr = curr.left;
+            } else if (!left && null != curr.right) {
+                curr = curr.right;
+            }
+            i++;
+        }
+
+        return curr;
     }
 }

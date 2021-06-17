@@ -11,6 +11,11 @@ import java.util.List;
  */
 public class MaxSubBSTSize {
 
+    /**
+     * ☆☆
+     * @param root
+     * @return
+     */
     public static int maxSubBSTSize(BTNode root) {
         if(null == root) {
             return 0;
@@ -84,6 +89,11 @@ public class MaxSubBSTSize {
         }
     }
 
+    /**
+     * ☆☆☆
+     * @param root
+     * @return
+     */
     public static int maxSubBSTSize2(BTNode root) {
         if(null == root) {
             return 0;

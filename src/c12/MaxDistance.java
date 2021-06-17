@@ -1,6 +1,5 @@
 package c12;
 
-import sun.security.jca.GetInstance;
 import util.BTNode;
 import util.BTUtil;
 
@@ -11,6 +10,11 @@ import java.util.*;
  */
 public class MaxDistance {
 
+    /**
+     * ☆☆
+     * @param root
+     * @return
+     */
     public static int maxDistance(BTNode root) {
 
         return process(root).maxDistance;
@@ -41,6 +45,11 @@ public class MaxDistance {
     }
 
 
+    /**
+     * ☆☆☆
+     * @param root
+     * @return
+     */
     public static int maxDistance2(BTNode root) {
         if(null == root) {
             return 0;
