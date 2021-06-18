@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * ☆☆☆
  * @author TK
  */
 public class MaxHappy {
