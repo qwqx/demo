@@ -1,7 +1,5 @@
 package c14;
 
-import util.ListUtil;
-
 import java.util.*;
 
 /**
@@ -22,7 +20,7 @@ public class UnionFind<V> {
     Map<Node<V>, Integer> sizeMap = new HashMap<>();
 
     UnionFind(List<V> values) {
-        for(V v : values) {
+        for (V v : values) {
             final Node<V> node = new Node<>(v);
             valueMap.put(v, node);
             parentMap.put(node, node);
@@ -38,13 +36,12 @@ public class UnionFind<V> {
             curr = parentMap.get(curr);
         }
 
-        for(Node node : parentSet) {
+        for (Node node : parentSet) {
             parentMap.put(node, curr);
         }
 
         return curr;
     }
-
 
 
     public boolean isSameSet(V a, V b) {
