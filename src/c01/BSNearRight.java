@@ -28,6 +28,32 @@ public class BSNearRight {
         return nearIndex;
     }
 
+    public static int nearestIndex1(int[] arr, int num) {
+
+        if (null == arr || arr.length < 1) {
+            return -1;
+        }
+
+        int L = -1;
+        int R = arr.length;
+        while (L+1 != R) {
+            int mid = L + ((R - L) >> 1);
+            if(isBlue(arr[mid], num)) {
+                L = mid;
+            }else {
+                R = mid;
+            }
+        }
+        return L;
+    }
+
+    private static boolean isBlue(int mid, int num) {
+        if(mid <= num) {
+            return true;
+        }
+        return false;
+    }
+
     // for test
     public static int test(int[] arr, int value) {
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -67,7 +93,7 @@ public class BSNearRight {
             int[] arr = generateRandomArray(maxSize, maxValue);
             Arrays.sort(arr);
             int value = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
-            if (test(arr, value) != nearestIndex(arr, value)) {
+            if (test(arr, value) != nearestIndex1(arr, value)) {
                 printArray(arr);
                 System.out.println(value);
                 System.out.println(test(arr, value));

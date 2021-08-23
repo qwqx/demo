@@ -1,5 +1,7 @@
 package c01;
 
+import util.TestUtil;
+
 import java.util.Arrays;
 
 public class BSExist {
@@ -22,6 +24,33 @@ public class BSExist {
             }else if(num < sortedArr[mid]) {
                 R = mid - 1;
             }
+        }
+        return false;
+    }
+
+    public static boolean exist1(int[] sortedArr, int num) {
+
+        if (sortedArr == null || sortedArr.length == 0) {
+            return false;
+        }
+
+        int L = -1;
+        int R = sortedArr.length;
+
+        while (L+1 != R) {
+            int mid = L + ((R - L) >> 1);
+            if(isBlue(sortedArr[mid], num)) {
+                L = mid;
+            }else {
+                R = mid;
+            }
+        }
+        return L >= 0 && sortedArr[L] == num;
+    }
+
+    private static boolean isBlue(int mid, int target) {
+        if(mid <= target) {
+            return true;
         }
         return false;
     }
@@ -56,7 +85,10 @@ public class BSExist {
             int[] arr = generateRandomArray(maxSize, maxValue);
             Arrays.sort(arr);
             int value = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
-            if (test(arr, value) != exist(arr, value)) {
+            if (test(arr, value) != exist1(arr, value)) {
+                TestUtil.print(arr);
+                System.out.println(value);
+                System.out.println(exist1(arr, value));
                 succeed = false;
                 break;
             }
