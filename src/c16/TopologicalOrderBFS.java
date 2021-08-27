@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 /**
+ * 根据入度bfs
  * @author TK
  */
 public class TopologicalOrderBFS {

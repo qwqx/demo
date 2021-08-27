@@ -92,9 +92,9 @@ public class SplitNumber {
     }
 
     public static void main(String[] args) {
-        System.out.println(ways(10));
+        System.out.println(ways(20));
 
-        System.out.println(dp1(10));
-        System.out.println(dp2(10));
+        System.out.println(dp1(20));
+        System.out.println(dp2(20));
     }
 }

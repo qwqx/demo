@@ -3,6 +3,7 @@ package c16;
 import java.util.*;
 
 /**
+ * 根据入度bfs
  * @author TK
  */
 public class TopologicalSort {
