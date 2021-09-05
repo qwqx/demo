@@ -3,6 +3,7 @@ package c04;
 import util.TestUtil;
 
 /**
+ * 数组小和
  * @author TK
  */
 public class SmallSum {

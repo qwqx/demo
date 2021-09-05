@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
+ * 完全二叉树
  * @author TK
  */
 public class IsCBT {

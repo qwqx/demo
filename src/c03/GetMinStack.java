@@ -3,6 +3,7 @@ package c03;
 import java.util.Stack;
 
 /**
+ * 最小栈，任何时候获取栈的最小元素 O（1）
  * @author TK
  */
 public class GetMinStack {

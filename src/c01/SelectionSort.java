@@ -2,6 +2,9 @@ package c01;
 
 import java.util.Arrays;
 
+/**
+ * 选择排序O（n2）
+ */
 public class SelectionSort {
 
     public static void sort(int[] arr) {

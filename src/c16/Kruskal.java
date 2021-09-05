@@ -3,6 +3,9 @@ package c16;
 import java.util.*;
 
 /**
+ * 最小生成树
+ *
+ * 每次找最小权值的边，如果加入后没有换则加入，直到所有的点都加入。并查集实现
  * @author TK
  */
 public class Kruskal {

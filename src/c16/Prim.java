@@ -6,6 +6,8 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 /**
+ * 最小生成树
+ * 从一个点开始选最小边，解锁点
  * @author TK
  */
 public class Prim {

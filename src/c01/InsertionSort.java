@@ -2,6 +2,9 @@ package c01;
 
 import java.util.Arrays;
 
+/**
+ * 插入排序O（n2）
+ */
 public class InsertionSort {
 
     public static void sort(int[] arr) {

@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class KM {
 
-    // 1个 k次, 其余m此次， 求出现一次的元素
+    // 1个 k次, 其余m此次， 求出现k次的元素
     // k< m
     public static int printKM(int[] arr, int k, int m) {
         int[] a = new int[32];
@@ -30,6 +30,7 @@ public class KM {
 
         }
 
+        //0这个数特殊处理
         if (ans == 0) {
             int count = 0;
             for (int i = 0; i < arr.length; i++) {

@@ -2,6 +2,11 @@ package c02;
 
 public class EvenTimesOddTimes {
 
+
+    /**
+     * 打印出现奇数次的数(只有一个)
+     * @param arr
+     */
     public static void printOddTimesNum1(int[] arr) {
         int eor = 0;
         for(int i = 0; i < arr.length; i++) {
@@ -11,6 +16,10 @@ public class EvenTimesOddTimes {
         System.out.println(eor);
     }
 
+    /**
+     * 打印出现奇数次的数（两个）
+     * @param arr
+     */
     public static void printOddTimesNum2(int[] arr) {
         int eor = 0;
         for(int i = 0; i < arr.length; i++) {

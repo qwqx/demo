@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * 反转链表
  * @author TK
  */
 public class ReverseList {

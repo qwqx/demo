@@ -72,7 +72,7 @@ public class NQueens {
 
     public static void main(String[] args) {
 
-        int n = 16;
+        int n = 4;
 
         long start = System.currentTimeMillis();
         System.out.println(num2(n));

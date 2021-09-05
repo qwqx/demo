@@ -5,6 +5,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 /**
+ * 双端队列实现栈/队列
  * @author TK
  */
 public class DoubleEndQueueToStackAndQueue {

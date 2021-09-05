@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * 二叉树最宽的层有多少个节点
  * ☆☆
  * @author TK
  */

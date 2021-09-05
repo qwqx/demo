@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * 删除链表中指定的值
  * @author TK
  */
 public class DeleteGivenValue {

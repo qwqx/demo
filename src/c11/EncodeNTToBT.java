@@ -3,6 +3,7 @@ package c11;
 import java.util.*;
 
 /**
+ * n叉树转2叉树
  * ☆☆☆
  * @author TK
  */

@@ -1,6 +1,5 @@
 package c23;
 
-import jdk.management.resource.internal.inst.FileOutputStreamRMHooks;
 
 /**
  * @author TK
