@@ -6,6 +6,7 @@ import java.util.*;
 
 /**
  * 每个窗口最大值
+ * 以一个双端链表记录 窗口最大值更新记录，列表从大到小，每次移动窗口都更新记录
  * @author TK
  */
 public class Code01_SlidingWindowMaxArray {
