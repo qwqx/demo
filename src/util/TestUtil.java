@@ -1,6 +1,8 @@
 package util;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
 
 /**
  * @author TK
@@ -18,6 +20,20 @@ public class TestUtil {
                 arr[i] = (int) (Math.random() * maxValue + 1);
             }
 
+        }
+        return arr;
+    }
+
+    public static int[] getRandomArrayNoRepeat(int size) {
+        int[] arr = new int[(int) (Math.random() * size) + 1];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            int swapIndex = (int) (Math.random() * arr.length);
+            int tmp = arr[swapIndex];
+            arr[swapIndex] = arr[i];
+            arr[i] = tmp;
         }
         return arr;
     }
@@ -113,5 +129,19 @@ public class TestUtil {
         }
 
         return String.valueOf(chars);
+    }
+
+
+    public static boolean isEqual(int[][] res1, int[][] res2) {
+        if (res1.length != res2.length) {
+            return false;
+        }
+        for (int i = 0; i < res1.length; i++) {
+            if (res1[i][0] != res2[i][0] || res1[i][1] != res2[i][1]) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
