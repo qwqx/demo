@@ -13,4 +13,9 @@ HashMap:
 
 
 
+ThreadLocal
+1.当前线程持有ThreadLocalMap Entry<ThreadLocal,Obj>
+2.set,get过程
+3.resize 过程
+4.Entry key WeakRefence & clean slot
 
