@@ -8,6 +8,9 @@ HashMap:
 
 7.HashMap\ConcurrentHashMap resize过程
 8.ConcurrentHashMap迭代器是强一致性还是弱一致性？HashMap呢？
+在遍历过程中，如果已经遍历的数组上的内容变化了，迭代器不会抛出ConcurrentModificationException异常。如果未遍历的数组上的内容发生了变化，则有可能反映到迭代过程中。这就是ConcurrentHashMap迭代器弱一致的表现。
+ConcurrentHashMap的弱一致性主要是为了提升效率，是一致性与效率之间的一种权衡。要成为强一致性，就得到处使用锁，甚至是全局锁，这就与Hashtable和同步的HashMap一样了
+
 
 
 
