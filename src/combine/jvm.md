@@ -577,6 +577,27 @@ G1采用复制算法回收几乎不会有太多内存碎片
 
 CMS回收阶段是跟用户线程一起并发执行的，但是G1因为内部实现太过复杂，所以暂时没有实现并发回收
 
+第一阶段initial mark是共用了Young GC的暂停，这是因为他们可以复用root scan操作，所以可以说global concurrent marking是伴随Young GC而发生的。第四阶段Cleanup只是回收了没有存活对象的Region，所以它并不需要STW。
+
+Young GC发生的时机大家都知道，那什么时候发生Mixed GC呢？其实是由一些参数控制着的，另外也控制着哪些老年代Region会被选入CSet
+
+- G1HeapWastePercent：在global concurrent marking结束之后，我们可以知道old gen regions中有多少空间要被回收，在每次YGC之后和再次发生Mixed GC之前，会检查垃圾占比是否达到此参数，只有达到了，下次才会发生Mixed GC。 
+
+* G1MixedGCLiveThresholdPercent：old generation region中的存活对象的占比，只有在此参数之下，才会被选入CSet。 
+* G1MixedGCCountTarget：一次global concurrent marking之后，最多执行Mixed GC的次数。 
+* G1OldCSetRegionThresholdPercent：一次Mixed GC中能被选入CSet的最多old generation region数量。
+
+其他參數
+
+| XX:G1HeapRegionSize=n              | 设置Region大小，并非最终值                                   |
+| ---------------------------------- | ------------------------------------------------------------ |
+| -XX:MaxGCPauseMillis               | 设置G1收集过程目标时间，默认值200ms，不是硬性条件            |
+| -XX:G1NewSizePercent               | 新生代最小值，默认值5%                                       |
+| -XX:G1MaxNewSizePercent            | 新生代最大值，默认值60%                                      |
+| -XX:ParallelGCThreads              | STW期间，并行GC线程数                                        |
+| -XX:ConcGCThreads=n                | 并发标记阶段，并行执行的线程数                               |
+| -XX:InitiatingHeapOccupancyPercent | 设置触发标记周期的 Java 堆占用率阈值。默认值是45%。这里的java堆占比指的是non_young_capacity_bytes，包括old+humongous |
+
 ### 3>G1特点
 
 - **并行与并发:** G1能充分利用CPU，多核环境下的硬件优势，使用多个CPU来缩短**STW时间**，部分其他收集器原本需要停顿Java线程来执行GC动作，G1收集器仍然可以通过并发的方式让Java线程**继续执行**
@@ -594,6 +615,10 @@ G1默认停顿时间200ms， 如果设置太短停顿时间太短，导致每次
 
 
 ### 4>g1 gc方式
+
+G1提供了两种GC模式，Young GC和Mixed GC，两种都是完全Stop The World的。 * Young GC：选定所有年轻代里的Region。通过控制年轻代的region个数，即年轻代内存大小，来控制young GC的时间开销。 * Mixed GC：选定所有年轻代里的Region，外加根据global concurrent marking统计得出收集收益高的若干老年代Region。在用户指定的开销目标范围内尽可能选择收益高的老年代Region。
+
+由上面的描述可知，Mixed GC不是full GC，它只能回收部分老年代的Region，如果mixed GC实在无法跟上程序分配内存的速度，导致老年代填满无法继续进行Mixed GC，就会使用serial old GC（full GC）来收集整个GC heap。所以我们可以知道，G1是不提供full GC的。
 
 ### YoungGC
 
@@ -628,6 +653,12 @@ YoungGC 并不是说现有的Eden区放满了就会马上触发，G1会计算下
 和CMS相同，由于在**并发标记阶段**，没有执行**STW**，所以也同样会产生漏标的场景，但是G1对于漏标的场景和CMS不同，G1是采用**SATB**的方式解决漏标场景，SATB相对**增量更新**效率会高，因为不需要在重新标记阶段再次深度扫描被删除的引用对象，而CMS对增量引用的根对象会做深度扫描，G1因为很多对象都位于不同的Region，CMS就一块老年代区域，重新深度扫描的成本G1会比CMS大很多很多**跨代引用的存在，不同的Region之间都算跨代**，所以G1选择SATB而不做深度扫描，只是简单标记，等到下一轮GC再深度扫描
 
 当然**SATB可能产生更多的浮动垃圾**，但是G1就是为了**提高用户体验**而允许浮动垃圾的**存在**
+
+### 9>Rset     https://tech.meituan.com/2016/09/23/g1.html
+
+全称是Remembered Set，是辅助GC过程的一种结构，典型的空间换时间工具，和Card Table有些类似。还有一种数据结构也是辅助GC的：Collection Set（CSet），它记录了GC要收集的Region集合，集合里的Region可以是任意年代的。在GC的时候，对于old->young和old->old的跨代对象引用，只要扫描对应的CSet中的RSet即可。 逻辑上说每个Region都有一个RSet，RSet记录了其他Region中的对象引用本Region中对象的关系，属于points-into结构（谁引用了我的对象）。而Card Table则是一种points-out（我引用了谁的对象）的结构，每个Card 覆盖一定范围的Heap（一般为512Bytes）。G1的RSet是在Card Table的基础上实现的：每个Region会记录下别的Region有指向自己的指针，并标记这些指针分别在哪些Card的范围内。 这个RSet其实是一个Hash Table，Key是别的Region的起始地址，Value是一个集合，里面的元素是Card Table的Index。
+
+RSet究竟是怎么辅助GC的呢？在做YGC的时候，只需要选定young generation region的RSet作为根集，这些RSet记录了old->young的跨代引用，避免了扫描整个old generation。 而mixed gc的时候，old generation中记录了old->old的RSet，young->old的引用由扫描全部young generation region得到，这样也不用扫描全部old generation region。所以RSet的引入大大减少了GC的工作量。
 
 
 
