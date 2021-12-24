@@ -680,6 +680,10 @@ dump
 
 mat:分析dump文件
 
+通过jinfo命令来查看和调整Java进程的「运行参数」。
+
+通过jstack命令来查看JVM「线程信息」。这个命令用常用语排查死锁相关的问题
+
 
 
 调优：https://juejin.cn/post/6949806402743304206
