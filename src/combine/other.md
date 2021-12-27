@@ -17,3 +17,11 @@ mysql死锁，
 
 volatile:
 
+
+
+redis一致性：https://juejin.cn/post/6964531365643550751
+
+https://juejin.cn/post/6987214020746936334
+
+延时双删，失败重试
+
